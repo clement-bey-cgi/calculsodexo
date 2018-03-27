@@ -1,38 +1,37 @@
 package com.example.calculSodexo.model;
 
-import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+//TODO faire table SOLUTION + TABLE JOINTURE SOLUTIONS_ARTICLES
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Ticket {
+@AllArgsConstructor
+public class Solution {
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column
-	private double prix;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_ticket")
+	private Ticket ticket;
 	
-	@OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<Article> articles = new HashSet<>();
-	
-	@OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Set<Solution> solutions = new HashSet<>();
+	@ManyToMany
+	private Set<Article> articles;
 }

@@ -5,7 +5,7 @@ MES NOTES
 ----------------------------------------------------------------------------------------------------
 
 - Dans le cas d'une relation One to Many / Many to One, le coté non propriétaire (celui qui n'a pas de référence à l'autre) est annoté avec 
-mapedBy = "nom_attribut_autre_classe".
+mapedBy = "nom_attribut_autre_classe". Le coté propriétaire, lui est annoté avec @ManyToOne @JoinColumn(name="colonne_id_autre")
 
 - Le coté propriétaire (qui a la référence) ne peut exister sans le coté qui ne l'est pas (A VERIFIER). Il faut donc que l'entité non propriétaire soit persistée en 
 premier. 
