@@ -16,6 +16,8 @@ premier.
 
 - Toutefois, il n'est uniquement possible que de rajouter un élément à la collection. Le fait de setX(null) ou même d'enlever les éléments persistés de la collection ne change pas. Ca me semble en contradiction avec le cascadeType...
 
+- [CASCADE ET ORPHAN, la fin des soucis](http://blog.paumard.org/cours/jpa/chap03-entite-relation.html)
+
 ##**HISTOIRE DE SESSION**
 
 - A VOIR transactionnal reste mystérieux ? j'ai besoin de transactionnal sinon erreur no session. 
