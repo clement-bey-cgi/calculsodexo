@@ -64,15 +64,16 @@ public class AnalyzeTicketController extends AbstractController {
 		Solution solution = new Solution();
 		solution.setTicket(savedTicket);
 		Set<Article> articles = new HashSet<>();
-		articles.add(articleService.get(8));
-		articles.add(articleService.get(9));
+		articles.addAll(new HashSet<Article>(articleService.getAll()));
 		solution.setArticles(articles);
 		
-		solutionRepository.save(solution);
+		ticketService.save(savedTicket);
 		
-		solution.setArticles(null);
-		
-		solutionRepository.save(solution);
+//		solutionRepository.save(solution);
+//		
+//		solution.setArticles(null);
+//		
+//		solutionRepository.save(solution);
 		// FIN TEST
 		
 		end();

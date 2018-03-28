@@ -4,18 +4,23 @@
 ----------------------------------------------------------------------------------------------------
 ##**MAPPING** 
 
-	- Dans le cas d'une relation One to Many / Many to One, le coté non propriétaire (celui qui n'a pas de référence à l'autre) est annoté avec 
-	mapedBy = "nom_attribut_autre_classe". Le coté propriétaire, lui est annoté avec @ManyToOne @JoinColumn(name="colonne_id_autre")
+- Dans le cas d'une relation One to Many / Many to One, le coté non propriétaire (celui qui n'a pas de référence à l'autre) est annoté avec 
+mapedBy = "nom_attribut_autre_classe". Le coté propriétaire, lui est annoté avec @ManyToOne @JoinColumn(name="colonne_id_autre")
 
-	- Le coté propriétaire (qui a la référence) ne peut exister sans le coté qui ne l'est pas (A VERIFIER). Il faut donc que l'entité non propriétaire soit persistée en 
-	premier. 
+##**PERSISTANCE** 
 
-- Une fois persisté, l'entité non propriétaire peut ajouter des entité propriétaire dans son ensemble, MAIS elles doivent avoir en elle un lien a ladite entité. L'enregistrement peut se faire par l'entité non propriétaire ensuite
+- Le coté propriétaire d'un One to Many / Many To One (qui a la référence) ne peut exister sans le coté qui ne l'est pas. Il faut donc que l'entité non propriétaire soit persistée en 
+premier. 
+
+- Une fois persisté, l'entité non propriétaire peut ajouter des entité propriétaire dans son ensemble, MAIS elles doivent avoir en elle un lien a ladite entité. L'enregistrement peut se faire par l'entité non propriétaire ensuite.
 
 - Toutefois, il n'est uniquement possible que de rajouter un élément à la collection. Le fait de setX(null) ou même d'enlever les éléments persistés de la collection ne change pas. Ca me semble en contradiction avec le cascadeType...
 
 ##**HISTOIRE DE SESSION**
-	- A VOIR transactionnal reste mystérieux ? j'ai besoin de transactionnal sinon erreur no session. 
+
+- A VOIR transactionnal reste mystérieux ? j'ai besoin de transactionnal sinon erreur no session. 
+
+- [Doc sympa sur le management des entité par JPA et Hibernate](https://www.thoughts-on-java.org/persist-save-merge-saveorupdate-whats-difference-one-use/)
 
 ----------------------------------------------------------------------------------------------------
 

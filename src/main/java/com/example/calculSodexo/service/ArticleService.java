@@ -1,7 +1,8 @@
 package com.example.calculSodexo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,5 +24,9 @@ public class ArticleService {
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public Article get(Integer id) {
 		return articleRepository.getOne(id);
+	}
+
+	public List<Article> getAll() {
+		return articleRepository.findAll();
 	}
 }
