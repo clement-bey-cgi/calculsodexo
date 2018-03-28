@@ -20,8 +20,6 @@ premier.
 
 A FAIRE 
 
-- Gitignore de mon projet 
-
 - l'algo de calcul des articles payable dans analyse 
 
 - liste des articles payables Sodexo

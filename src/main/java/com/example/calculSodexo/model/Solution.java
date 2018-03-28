@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
@@ -16,7 +17,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-//TODO faire table SOLUTION + TABLE JOINTURE SOLUTIONS_ARTICLES
 @Entity
 @Getter
 @Setter
@@ -33,5 +33,11 @@ public class Solution {
 	private Ticket ticket;
 	
 	@ManyToMany
+    @JoinTable(name="solution_article",
+    joinColumns=
+        @JoinColumn(name="id_solution", referencedColumnName="ID"),
+    inverseJoinColumns=
+        @JoinColumn(name="id_article", referencedColumnName="ID")
+    )
 	private Set<Article> articles;
 }

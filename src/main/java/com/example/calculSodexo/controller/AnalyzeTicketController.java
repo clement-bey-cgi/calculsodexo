@@ -12,6 +12,7 @@ import com.example.calculSodexo.enums.Choice;
 import com.example.calculSodexo.model.Article;
 import com.example.calculSodexo.model.Solution;
 import com.example.calculSodexo.model.Ticket;
+import com.example.calculSodexo.repository.SolutionRepository;
 import com.example.calculSodexo.service.ArticleService;
 import com.example.calculSodexo.service.TicketService;
 
@@ -27,6 +28,9 @@ public class AnalyzeTicketController extends AbstractController {
 	
 	@Autowired
 	private ArticleService articleService;
+	
+	@Autowired
+	private SolutionRepository solutionRepository;
 	
 	private Double montantTotal;
 	
@@ -56,40 +60,18 @@ public class AnalyzeTicketController extends AbstractController {
 		// Le ticket est complet, algorithme de résolution
 		Set<Article> unchosenArticles = savedTicket.getArticles();
 		Set<Article> chosenArticles = new HashSet<>();
-		Set<Solution> solutions = prepareSolution(chosenArticles, unchosenArticles, savedTicket.getPrix());
+		//Set<Solution> solutions = ticketService.prepareSolution(chosenArticles, unchosenArticles, savedTicket.getPrix());
+		
+		Solution solution = new Solution();
+		solution.setTicket(savedTicket);
+		Set<Article> articles = new HashSet<>();
+		articles.add(articleService.get(8));
+		articles.add(articleService.get(9));
+		solution.setArticles(articles);
+		
+		solutionRepository.save(solution);
 		
 		end();
-	}
-	
-	public Set<Solution> prepareSolution(Set<Article> chosenArticles, Set<Article> unchosenArticles, Double montant) {
-		// TODO A VIRER DANS TICKET SERVICE + FINIR ALGO
-		
-		// implémenter un objet solution possible qui prend le montant payable en carte +tous les articles du ticket + solution possible 
-
-		// un ticket aura une liste de solution possible
-
-		// fonction récursive pour trouver la solution
-		
-		// if solutions == null... Pas de solution + suppression du ticket
-
-	    Iterator<Article> unchosenIterator = unchosenArticles.iterator();
-	    Article article;
-	    while ( unchosenIterator.hasNext()) {
-	         article = unchosenIterator.next();
-	         if (montant - article.getPrix() > 0) {
-	            chosenArticles.add(article);
-	            unchosenArticles.remove(article);
-	            montant -= article.getPrix();
-	            return prepareSolution(chosenArticles, unchosenArticles, montant);
-	         }
-	         /*else if (montant - article.getPrix() < 0) {
-	             continue;
-	         }
-	         else {
-	            return 
-	        }*/
-	    }
-        return new HashSet<Solution>();
 	}
 
 

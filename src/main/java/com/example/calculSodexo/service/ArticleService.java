@@ -19,4 +19,9 @@ public class ArticleService {
 	public Article save(Article article) {
 		return articleRepository.save(article);
 	}
+
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public Article get(Integer id) {
+		return articleRepository.getOne(id);
+	}
 }
