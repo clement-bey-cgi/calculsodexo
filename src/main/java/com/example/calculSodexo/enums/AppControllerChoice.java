@@ -3,14 +3,14 @@ package com.example.calculSodexo.enums;
 import lombok.Getter;
 
 @Getter
-public enum Choice {
+public enum AppControllerChoice {
 	NewTicket("1"),
 	ArticleList("2"),
-	Quit("Q");
+	Quit("q");
 	
 	private String value;
 	
-	private Choice (String value) {
+	private AppControllerChoice (String value) {
 		this.value = value;
 	}
 }

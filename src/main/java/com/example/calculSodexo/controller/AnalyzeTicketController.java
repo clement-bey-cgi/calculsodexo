@@ -1,14 +1,12 @@
 package com.example.calculSodexo.controller;
 
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Scanner;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.example.calculSodexo.enums.Choice;
+import com.example.calculSodexo.enums.AnalyzeTicketChoice;
 import com.example.calculSodexo.model.Article;
 import com.example.calculSodexo.model.Solution;
 import com.example.calculSodexo.model.Ticket;
@@ -17,7 +15,6 @@ import com.example.calculSodexo.service.ArticleService;
 import com.example.calculSodexo.service.TicketService;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Component 
 @Getter
@@ -29,10 +26,11 @@ public class AnalyzeTicketController extends AbstractController {
 	@Autowired
 	private ArticleService articleService;
 	
+	// TODO VIRER APRES TEST
 	@Autowired
 	private SolutionRepository solutionRepository;
 	
-	private Double montantTotal;
+	private Double montantTotalTicket;
 	
 	private Double montantArticle;
 	
@@ -42,26 +40,27 @@ public class AnalyzeTicketController extends AbstractController {
 	public void go() {
 		begin();
 		
-		this.setMontantTotal();
-		
+		// Creation Ticket
+		this.setMontantTotalTicket();
 		Ticket t = new Ticket();
-		t.setPrix(this.getMontantTotal());
-		
+		t.setPrix(this.getMontantTotalTicket());
 		Ticket savedTicket = ticketService.save(t);
 		
+		// Ajout des articles au ticket
 		print("Ajout d'un article au ticket... Entrez Q pour quitter !");
 		this.setChoice();
-		while (!(Choice.Quit.getValue().equals(this.getChoice()))) {
+		while (!(AnalyzeTicketChoice.Quit.getValue().equals(this.getChoice()))) {
 			this.addArticleToTicket(savedTicket);
 			print("Ajout d'un article au ticket... Entrez Q pour quitter !");
 			this.setChoice();
 		}
 		
-		// Le ticket est complet, algorithme de résolution
-		Set<Article> unchosenArticles = savedTicket.getArticles();
-		Set<Article> chosenArticles = new HashSet<>();
-		//Set<Solution> solutions = ticketService.prepareSolution(chosenArticles, unchosenArticles, savedTicket.getPrix());
+		// TICKET COMPLET, ALGORITHME DE RESOLUTION
+//		Set<Article> unchosenArticles = savedTicket.getArticles();
+//		Set<Article> chosenArticles = new HashSet<>();
+//		Set<Solution> solutions = ticketService.prepareSolution(chosenArticles, unchosenArticles, savedTicket.getPrix());
 		
+		// TEST
 		Solution solution = new Solution();
 		solution.setTicket(savedTicket);
 		Set<Article> articles = new HashSet<>();
@@ -70,6 +69,11 @@ public class AnalyzeTicketController extends AbstractController {
 		solution.setArticles(articles);
 		
 		solutionRepository.save(solution);
+		
+		solution.setArticles(null);
+		
+		solutionRepository.save(solution);
+		// FIN TEST
 		
 		end();
 	}
@@ -92,10 +96,10 @@ public class AnalyzeTicketController extends AbstractController {
 		articleService.save(article);
 	}
 	
-	public void setMontantTotal() {
+	public void setMontantTotalTicket() {
 		print("Montant total du ticket ?");
 		Double montant = Double.valueOf(scan.nextLine());
-		this.montantTotal = montant;
+		this.montantTotalTicket = montant;
 	}
 	
 	public void setMontantArticle() {
