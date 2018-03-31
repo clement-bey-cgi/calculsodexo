@@ -30,7 +30,7 @@ premier.
 
 - je dois me co a chaque push c'est relou. PK ?
 
-- vérouillez les entrées utilisateur "au cas où"
+- vérouillez les entrées utilisateur "au cas où".
 
 - l'algo de calcul des articles payable dans analyse.
 
